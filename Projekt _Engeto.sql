@@ -18,3 +18,19 @@ except
 select ct.country 
 from covid19_tests ct ;
 
+# tyto zemì pøejmenovat v tabulce tests
+---- Czech republic = Czechia
+---- Myanamar = Burma
+---- South Korea = Korea, South
+---- Taiwan= Taiwan*
+---- United States = US
+
+create table t_covid_tests_uprava_zemi as
+select * from covid19_tests ct ;
+
+update t_covid_tests_uprava_zemi set country = 'Czechia' where ISO = 'CZE';
+update t_covid_tests_uprava_zemi set country = 'Burma' where ISO = 'MMR';
+update t_covid_tests_uprava_zemi set country = 'Korea, South' where ISO = 'KOR';
+update t_covid_tests_uprava_zemi set country = 'Taiwan*' where ISO = 'TWN';
+update t_covid_tests_uprava_zemi set country = 'US' where ISO = 'USA';
+
