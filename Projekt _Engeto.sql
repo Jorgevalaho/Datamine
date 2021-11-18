@@ -34,3 +34,11 @@ update t_covid_tests_uprava_zemi set country = 'Korea, South' where ISO = 'KOR';
 update t_covid_tests_uprava_zemi set country = 'Taiwan*' where ISO = 'TWN';
 update t_covid_tests_uprava_zemi set country = 'US' where ISO = 'USA';
 
+#Vytvor tabulku, kde bude zaznam o potvrzenych pripadech a testech. Ke vsem zaznamenavanym dnum potvrzenych pripadu nejsou zaznamy o testech.
+
+create table t_covid_confirmed_tests as
+select cbd.country , cbd.`date` , cbd.confirmed , tctuz.tests_performed 
+from covid19_basic_differences cbd 
+left join t_covid_tests_uprava_zemi tctuz
+on cbd.country = tctuz.country and cbd.`date` = tctuz.`date`
+order by country asc;
