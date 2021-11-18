@@ -50,3 +50,11 @@ from economies e
 where mortaliy_under5 is not null
 group by country 
 order by country asc;
+
+# Udaje o HDP na obyvatele chci za 2020, nebo 2019. Starsi nechci.
+# HDP na obyvatele za 2020.
+create table t_gdp_per_capita
+select country , GDP , round (gdp / population, 2) as gdp_per_capita
+from economies e 
+where `year` = '2020'
+order by country asc;
