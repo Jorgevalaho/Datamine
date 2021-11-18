@@ -42,3 +42,11 @@ from covid19_basic_differences cbd
 left join t_covid_tests_uprava_zemi tctuz
 on cbd.country = tctuz.country and cbd.`date` = tctuz.`date`
 order by country asc;
+
+# Tabulka s poslednim dostupnym udajem o detske umrtnosti.
+create table t_mort5 as
+select country , mortaliy_under5 
+from economies e
+where mortaliy_under5 is not null
+group by country 
+order by country asc;
