@@ -91,3 +91,18 @@ from countries c
 where population != 0 and surface_area != 0
 order by country asc;
 
+# Podily nabozenstvi. Pocitam podil populace na nabozenstvi / suma populace dle zeme. Vse pocitam z tabulky religions. 
+create table t_religion_share as
+select base.country, base.religion, base.population, a.total_population,
+		round ((base.population/a.total_population)*100,2) as perc_share_on_total_population
+from 
+	(select country , religion , population 
+	from religions r
+	where `year` = 2020) as base
+join
+	(select country, sum (population) as total_population
+	from religions r 
+	where `year` = 2020
+	group by country) as a
+on base.country = a.country;
+
