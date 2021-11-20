@@ -83,3 +83,11 @@ where year >= 2010 and gini is not null
 group by country 
 order by country asc;
 
+# Population density vypocitam. V tabulce countries se hodnota population_density u nekterych zemi lisi od vypoctene hodnoty z population/surface_area. 
+# Vypocitavam jen z udaju dostupnych.
+create table t_pop_density
+select country , round (population / surface_area,4) as population_density
+from countries c 
+where population != 0 and surface_area != 0
+order by country asc;
+
