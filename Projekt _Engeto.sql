@@ -75,5 +75,11 @@ set base.gdp_per_capita = a.gdp_per_capita
 where base.gdp_per_capita is null 
 and a.gdp_per_capita is not null;
 
-
+# GINI: Nejmladsi dostupna hodnota GINI, ale zaroven ne starsi, nez z roku 2010.
+create table t_gini as
+select country , `year` , gini as GINI
+from economies e 
+where year >= 2010 and gini is not null
+group by country 
+order by country asc;
 
