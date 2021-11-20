@@ -67,3 +67,13 @@ join (select country from economies e2 where `year`= '2020' and gdp is null) as 
 on z.country = e.country 
 where e.`year` = '2019' and e.GDP is not null;
 
+# Ted updatuju tabulku t_gdp_per_capita tam, kde chybi udaje za 2020 a doplnim zde udaj za 2019.
+update t_gdp_per_capita as base 
+inner join t_gdp_per_capita_2019 as a 
+on base.country = a.country 
+set base.gdp_per_capita = a.gdp_per_capita 
+where base.gdp_per_capita is null 
+and a.gdp_per_capita is not null;
+
+
+
