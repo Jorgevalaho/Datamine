@@ -58,3 +58,12 @@ select country , GDP , round (gdp / population, 2) as gdp_per_capita
 from economies e 
 where `year` = '2020'
 order by country asc;
+
+# HPD na obyvatele za rok 2019 u zemi, kde chybi udaj za rok 2020.
+create table t_gdp_per_capita_2019
+select z.country , e.GDP , round (e.gdp / e.population, 2) as gdp_per_capita
+from economies e 
+join (select country from economies e2 where `year`= '2020' and gdp is null) as z
+on z.country = e.country 
+where e.`year` = '2019' and e.GDP is not null;
+
