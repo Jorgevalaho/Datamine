@@ -106,3 +106,17 @@ join
 	group by country) as a
 on base.country = a.country;
 
+# Tabulka rozdil v ocekavane delce doziti v roce 1965 a 2015.
+create table t_life_expectancy_diff as
+select le15.country, le15.life_expectancy_2015, le65.life_expectancy_1965, round (le15.life_expectancy_2015-le65.life_expectancy_1965, 2) as life_expectancy_diff
+from
+	(select country, life_expectancy as life_expectancy_2015
+	from life_expectancy le 
+	where `year` = 2015) as le15
+join
+	(select country, life_expectancy as life_expectancy_1965
+	from life_expectancy le 
+	where `year` = 1965) as le65
+on le15.country = le65.country
+order by country ;
+
