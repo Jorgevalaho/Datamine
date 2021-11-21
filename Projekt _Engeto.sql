@@ -120,3 +120,14 @@ join
 on le15.country = le65.country
 order by country ;
 
+# Do tabulky weather pridam sloupec country.
+create table t_weather as
+select zeme.country, base.*
+from
+	(select * 
+	from weather w ) as base
+left join
+	(select country, capital_city
+	from countries) as zeme
+on base.city = zeme.capital_city ;
+
