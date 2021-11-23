@@ -144,3 +144,6 @@ update t_weather set country = 'Italy' where city = 'Rome';
 update t_weather set country = 'Austria' where city = 'Vienna';
 update t_weather set country = 'Poland' where city = 'Warsaw';
 
+# Upravil jsem v tabulce t_weather nazev Ruska aby se shodoval s tabulkou t_covid_confirmed_tests na kterou budu napojovat.
+update t_weather set country = 'Russian Federation' where city = 'Moscow';
+
