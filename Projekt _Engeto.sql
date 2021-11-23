@@ -131,3 +131,16 @@ left join
 	from countries) as zeme
 on base.city = zeme.capital_city ;
 
+# Tabulku t_weather jsem updatoval o nazvy zemi tam kde chybely.
+update t_weather set country = 'Greece' where city = 'Athens';
+update t_weather set country = 'Belgium' where city = 'Brussels';
+update t_weather set country = 'Romania' where city = 'Bucharest';
+update t_weather set country = 'Finland' where city = 'Helsinki';
+update t_weather set country = 'Ukraine' where city = 'Kiev';
+update t_weather set country = 'Portugal' where city = 'Lisbon';
+update t_weather set country = 'Luxembourg' where city = 'Luxembourg';
+update t_weather set country = 'Czechia' where city = 'Prague';
+update t_weather set country = 'Italy' where city = 'Rome';
+update t_weather set country = 'Austria' where city = 'Vienna';
+update t_weather set country = 'Poland' where city = 'Warsaw';
+
