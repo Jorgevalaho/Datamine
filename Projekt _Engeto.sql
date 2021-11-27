@@ -147,3 +147,10 @@ update t_weather set country = 'Poland' where city = 'Warsaw';
 # Upravil jsem v tabulce t_weather nazev Ruska aby se shodoval s tabulkou t_covid_confirmed_tests na kterou budu napojovat.
 update t_weather set country = 'Russian Federation' where city = 'Moscow';
 
+# Tabulka s prumernou denni teplotou.
+create table t_avg_temp as
+select *, avg (cast (trim (trim (trailing '°c' from temp))as float)) as avg_temp
+from t_weather tw 
+where `time` between '06:00' and '18:00'
+and country is not null
+group by country, `date`;
