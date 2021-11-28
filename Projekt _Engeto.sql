@@ -164,3 +164,11 @@ from
      where country is not null) as base
 where rain2 > 0
 group by country, `date`;
+
+# Maximalni sila vetru v narazech behem dne.
+create table t_max_gusty_wind as
+	select *, max (cast (trim (trim (trailing 'km/h' from gust))as int)) as max_gusty_wind
+from t_weather tw 
+	where `time` between '06:00' and '18:00'
+	and country is not null
+group by country,`date` ;
