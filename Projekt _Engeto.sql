@@ -154,3 +154,13 @@ from t_weather tw
 where `time` between '06:00' and '18:00'
 and country is not null
 group by country, `date`;
+
+# Pocet hodin srazek behem dne.
+create table t_srazky as
+	select *, count (rain2) as pocet_zaznamu_srazek, (count (rain2))*3 as Rain_hours
+from
+    (select *,cast (trim (trim (trailing 'mm' from rain))as float) as rain2
+     from t_weather tw 
+     where country is not null) as base
+where rain2 > 0
+group by country, `date`;
