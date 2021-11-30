@@ -242,3 +242,16 @@ update t_religion_share set country = 'US' where country = 'United States';
 
 # Uprava nazvu Taiwan v tabulce t_religion_share.
 update t_religion_share set country = 'Taiwan*' where country = 'Taiwan';
+
+# Uprava zemi v t_life_expectancy_diff.
+update t_life_expectancy_diff set country = 'Czechia' where country = 'Czech Republic';
+update t_life_expectancy_diff set country = 'Burma' where country = 'Myanmar';
+update t_life_expectancy_diff set country = 'Russia' where country = 'Russian Federation';
+update t_life_expectancy_diff set country = 'Korea, South' where country ='South Korea';
+update t_life_expectancy_diff set country = 'Congo (Kinshasa)' where country = 'The Democratic Republic of Congo';
+update t_life_expectancy_diff set country = 'Congo (Brazzaville)' where country = 'Congo';
+update t_life_expectancy_diff set country = 'US' where country = 'United States';
+update t_life_expectancy_diff set country = 'Taiwan*' where country = 'Taiwan';
+
+
+
