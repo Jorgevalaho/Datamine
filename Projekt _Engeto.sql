@@ -221,4 +221,11 @@ update t_gini set country = 'Congo (Kinshasa)' where country = 'The Democratic R
 update t_gini set country = 'Congo (Brazzaville)' where country = 'Congo';
 update t_gini set country = 'US' where country = 'United States';
 
+# Uprava tabulky t_pop_density, aby se nazvy zemi shodovaly se zakladni tabulkou.
+update t_pop_density set country = 'US' where country = 'United States';
+update t_pop_density set country = 'Korea, South' where country = 'South Korea';
+update t_pop_density set country = 'Burma' where country = 'Myanmar';
+update t_pop_density set country = 'Czechia' where country = 'Czech Republic';
+update t_pop_density set country = 'Congo (Kinshasa)' where country = 'Congo';
+
 
