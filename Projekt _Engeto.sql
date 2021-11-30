@@ -239,3 +239,6 @@ update t_religion_share set country = 'Saint Vincent and the Grenadines' where c
 update t_religion_share set country = 'Congo (Kinshasa)' where country = 'The Democratic Republic of Congo';
 update t_religion_share set country = 'Congo (Brazzaville)' where country = 'Congo';
 update t_religion_share set country = 'US' where country = 'United States';
+
+# Uprava nazvu Taiwan v tabulce t_religion_share.
+update t_religion_share set country = 'Taiwan*' where country = 'Taiwan';
