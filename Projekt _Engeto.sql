@@ -228,4 +228,14 @@ update t_pop_density set country = 'Burma' where country = 'Myanmar';
 update t_pop_density set country = 'Czechia' where country = 'Czech Republic';
 update t_pop_density set country = 'Congo (Kinshasa)' where country = 'Congo';
 
-
+# Uprava nazvu zemi v tabulce t_religion_share.
+update t_religion_share set country = 'Czechia' where country = 'Czech Republic';
+update t_religion_share set country = 'Burma' where country = 'Myanmar';
+update t_religion_share set country = 'Russia' where country = 'Russian Federation';
+update t_religion_share set country = 'Korea, South' where country ='South Korea';
+update t_religion_share set country = 'Saint Kitts and Nevis' where country = 'St. Kitts and Nevis';
+update t_religion_share set country = 'Saint Lucia' where country = 'St. Lucia';
+update t_religion_share set country = 'Saint Vincent and the Grenadines' where country = 'St. Vincent and the Grenadines';
+update t_religion_share set country = 'Congo (Kinshasa)' where country = 'The Democratic Republic of Congo';
+update t_religion_share set country = 'Congo (Brazzaville)' where country = 'Congo';
+update t_religion_share set country = 'US' where country = 'United States';
