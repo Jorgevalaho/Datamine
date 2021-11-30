@@ -253,5 +253,7 @@ update t_life_expectancy_diff set country = 'Congo (Brazzaville)' where country 
 update t_life_expectancy_diff set country = 'US' where country = 'United States';
 update t_life_expectancy_diff set country = 'Taiwan*' where country = 'Taiwan';
 
-
-
+# Uprava zemi v tabulkach vychazejicich z t_weather.
+update t_avg_temp set country = 'Russia' where country = 'Russian Federation';
+update t_srazky set country = 'Russia' where country = 'Russian Federation';
+update t_max_gusty_wind set country = 'Russia' where country = 'Russian Federation';
