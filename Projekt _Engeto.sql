@@ -186,3 +186,39 @@ select country ,`date` , case
          	  end as Season,
               confirmed , tests_performed 
 from t_covid_confirmed_tests tcct ;
+
+# Uprava tabulek vychazejicich z economies, aby se nazvy zemi shodovaly se zakladni tabulkou t_covid_confirmed_tests_cas.
+update t_mort5 set country = 'Brunei' where country = 'Brunei Darussalam';
+update t_mort5 set country = 'Czechia' where country = 'Czech Republic';
+update t_mort5 set country = 'Burma' where country = 'Myanmar';
+update t_mort5 set country = 'Russia' where country = 'Russian Federation';
+update t_mort5 set country = 'Korea, South' where country ='South Korea';
+update t_mort5 set country = 'Saint Kitts and Nevis' where country = 'St. Kitts and Nevis';
+update t_mort5 set country = 'Saint Lucia' where country = 'St. Lucia';
+update t_mort5 set country = 'Saint Vincent and the Grenadines' where country = 'St. Vincent and the Grenadines';
+update t_mort5 set country = 'Congo (Kinshasa)' where country = 'The Democratic Republic of Congo';
+update t_mort5 set country = 'Congo (Brazzaville)' where country = 'Congo';
+update t_mort5 set country = 'US' where country = 'United States';
+
+update t_gdp_per_capita set country = 'Brunei' where country = 'Brunei Darussalam';
+update t_gdp_per_capita set country = 'Czechia' where country = 'Czech Republic';
+update t_gdp_per_capita set country = 'Burma' where country = 'Myanmar';
+update t_gdp_per_capita set country = 'Russia' where country = 'Russian Federation';
+update t_gdp_per_capita set country = 'Korea, South' where country ='South Korea';
+update t_gdp_per_capita set country = 'Saint Kitts and Nevis' where country = 'St. Kitts and Nevis';
+update t_gdp_per_capita set country = 'Saint Lucia' where country = 'St. Lucia';
+update t_gdp_per_capita set country = 'Saint Vincent and the Grenadines' where country = 'St. Vincent and the Grenadines';
+update t_gdp_per_capita set country = 'Congo (Kinshasa)' where country = 'The Democratic Republic of Congo';
+update t_gdp_per_capita set country = 'Congo (Brazzaville)' where country = 'Congo';
+update t_gdp_per_capita set country = 'US' where country = 'United States';
+
+update t_gini set country = 'Czechia' where country = 'Czech Republic';
+update t_gini set country = 'Burma' where country = 'Myanmar';
+update t_gini set country = 'Russia' where country = 'Russian Federation';
+update t_gini set country = 'Korea, South' where country ='South Korea';
+update t_gini set country = 'Saint Lucia' where country = 'St. Lucia';
+update t_gini set country = 'Congo (Kinshasa)' where country = 'The Democratic Republic of Congo';
+update t_gini set country = 'Congo (Brazzaville)' where country = 'Congo';
+update t_gini set country = 'US' where country = 'United States';
+
+
