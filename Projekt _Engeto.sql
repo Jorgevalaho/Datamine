@@ -257,3 +257,38 @@ update t_life_expectancy_diff set country = 'Taiwan*' where country = 'Taiwan';
 update t_avg_temp set country = 'Russia' where country = 'Russian Federation';
 update t_srazky set country = 'Russia' where country = 'Russian Federation';
 update t_max_gusty_wind set country = 'Russia' where country = 'Russian Federation';
+
+# Tabulky pro nabozenstvi.
+create table t_christianity as
+select country , religion, perc_share_on_total_population as Christianity 
+from t_religion_share trs2 where religion = 'Christianity';
+
+create table t_islam as
+select country , religion, perc_share_on_total_population as Islam
+from t_religion_share trs2 where religion = 'Islam';
+
+create table t_Unaffiliated_Religions as
+select country , religion, perc_share_on_total_population as Unaffiliated_Religions
+from t_religion_share trs2 where religion = 'Unaffiliated Religions';
+
+create table t_hinduism as
+select country , religion, perc_share_on_total_population as Hinduism
+from t_religion_share trs2 where religion = 'Hinduism';
+
+create table t_buddhism as
+select country , religion, perc_share_on_total_population as Buddhism
+from t_religion_share trs2 where religion = 'Buddhism';
+
+create table t_Folk_Religions as
+select country , religion, perc_share_on_total_population as Folk_Religions
+from t_religion_share trs2 where religion = 'Folk Religions';
+
+create table t_Other_Religions as
+select country , religion, perc_share_on_total_population as Other_Religions
+from t_religion_share trs2 where religion = 'Other Religions';
+
+create table t_Judaism as
+select country , religion, perc_share_on_total_population as Judaism
+from t_religion_share trs2 where religion = 'Judaism';
+
+
