@@ -381,3 +381,14 @@ left join t_srazky ts
 on tcctc.country = ts.country and tcctc.`date` = ts.`date` 
 left join t_max_gusty_wind tmgw 
 on tcctc.country = tmgw.country and tcctc.`date` = tmgw.`date` ;
+
+# Vytvoreni tabulky s udaji o celkove populaci a uprava nazvu zemi.
+create table t_population as 
+select country ,population 
+from countries;
+
+update t_population set country = 'US' where country = 'United States';
+update t_population set country = 'Korea, South' where country = 'South Korea';
+update t_population set country = 'Burma' where country = 'Myanmar';
+update t_population set country = 'Czechia' where country = 'Czech Republic';
+update t_population set country = 'Congo (Kinshasa)' where country = 'Congo';
