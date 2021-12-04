@@ -1,8 +1,8 @@
-# Tabulka covid basic differences obsahuje seznam zemí, který není shodný s covid tests.
-# Potøebuji mít seznam zemí z obou tabulek, abych navázal data z covid differences a covid tests. 
-# Nìkteré názvy zemí se v tabulkách liší.
+# Zaklad dat budou tabulky covid19_basic_differences a covid19_tests.
+# Seznam zemi v covid19_basic_differences se musi shodovat se seznamem z covid19_tests.
+# Nektere nazvy zemi se v tabulkach lisi.
 
-# Zemì co jsou v covid tests, ale nejsou v covid differences
+# Zeme co jsou v covid tests, ale ne v differences.
 create view v_zeme_v_tests_ale_ne_v_diff as
 select ct.country 
 from covid19_tests ct 
@@ -10,7 +10,7 @@ except
 select cbd.country 
 from covid19_basic_differences cbd ;
 
-# Zemì co jsou v differences ale ne v tests
+# Zeme co jsou v differences, ale ne v tests.
 create view v_zeme_v_diff_ale_ne_v_tests as
 select cbd.country 
 from covid19_basic_differences cbd
@@ -18,7 +18,7 @@ except
 select ct.country 
 from covid19_tests ct ;
 
-# tyto zemì pøejmenovat v tabulce tests
+# Tyto zeme prejmenovat v tabulce tests.
 ---- Czech republic = Czechia
 ---- Myanamar = Burma
 ---- South Korea = Korea, South
@@ -37,7 +37,8 @@ update t_covid_tests_uprava_zemi set country = 'US' where ISO = 'USA';
 #Vytvor tabulku, kde bude zaznam o potvrzenych pripadech a testech. Ke vsem zaznamenavanym dnum potvrzenych pripadu nejsou zaznamy o testech.
 
 create table t_covid_confirmed_tests as
-select cbd.country , cbd.`date` , cbd.confirmed , tctuz.tests_performed 
+select 
+	cbd.country , cbd.`date` , cbd.confirmed , tctuz.tests_performed 
 from covid19_basic_differences cbd 
 left join t_covid_tests_uprava_zemi tctuz
 on cbd.country = tctuz.country and cbd.`date` = tctuz.`date`
@@ -45,7 +46,8 @@ order by country asc;
 
 # Tabulka s poslednim dostupnym udajem o detske umrtnosti.
 create table t_mort5 as
-select country , mortaliy_under5 
+select 
+	country , mortaliy_under5 
 from economies e
 where mortaliy_under5 is not null
 group by country 
@@ -54,16 +56,25 @@ order by country asc;
 # Udaje o HDP na obyvatele chci za 2020, nebo 2019. Starsi nechci.
 # HDP na obyvatele za 2020.
 create table t_gdp_per_capita
-select country , GDP , round (gdp / population, 2) as gdp_per_capita
+select 
+	country , 
+	GDP , 
+	round (gdp / population, 2) as gdp_per_capita
 from economies e 
 where `year` = '2020'
 order by country asc;
 
 # HPD na obyvatele za rok 2019 u zemi, kde chybi udaj za rok 2020.
 create table t_gdp_per_capita_2019
-select z.country , e.GDP , round (e.gdp / e.population, 2) as gdp_per_capita
+select 
+	z.country , 
+	e.GDP , 
+	round (e.gdp / e.population, 2) as gdp_per_capita
 from economies e 
-join (select country from economies e2 where `year`= '2020' and gdp is null) as z
+join 
+    (select country 
+    from economies e2 
+    where `year`= '2020' and gdp is null) as z
 on z.country = e.country 
 where e.`year` = '2019' and e.GDP is not null;
 
@@ -71,13 +82,16 @@ where e.`year` = '2019' and e.GDP is not null;
 update t_gdp_per_capita as base 
 inner join t_gdp_per_capita_2019 as a 
 on base.country = a.country 
-set base.gdp_per_capita = a.gdp_per_capita 
+    set base.gdp_per_capita = a.gdp_per_capita 
 where base.gdp_per_capita is null 
 and a.gdp_per_capita is not null;
 
 # GINI: Nejmladsi dostupna hodnota GINI, ale zaroven ne starsi, nez z roku 2010.
 create table t_gini as
-select country , `year` , gini as GINI
+select 
+	country ,
+	`year` , 
+	gini as GINI
 from economies e 
 where year >= 2010 and gini is not null
 group by country 
@@ -86,15 +100,21 @@ order by country asc;
 # Population density vypocitam. V tabulce countries se hodnota population_density u nekterych zemi lisi od vypoctene hodnoty z population/surface_area. 
 # Vypocitavam jen z udaju dostupnych.
 create table t_pop_density
-select country , round (population / surface_area,4) as population_density
+select 
+	country , 
+	round (population / surface_area,4) as population_density
 from countries c 
 where population != 0 and surface_area != 0
 order by country asc;
 
 # Podily nabozenstvi. Pocitam podil populace na nabozenstvi / suma populace dle zeme. Vse pocitam z tabulky religions. 
 create table t_religion_share as
-select base.country, base.religion, base.population, a.total_population,
-		round ((base.population/a.total_population)*100,2) as perc_share_on_total_population
+select 
+	base.country, 
+	base.religion, 
+	base.population, 
+	a.total_population,
+	round ((base.population/a.total_population)*100,2) as perc_share_on_total_population
 from 
 	(select country , religion , population 
 	from religions r
@@ -108,7 +128,11 @@ on base.country = a.country;
 
 # Tabulka rozdil v ocekavane delce doziti v roce 1965 a 2015.
 create table t_life_expectancy_diff as
-select le15.country, le15.life_expectancy_2015, le65.life_expectancy_1965, round (le15.life_expectancy_2015-le65.life_expectancy_1965, 2) as life_expectancy_diff
+select 
+	le15.country, 
+	le15.life_expectancy_2015, 
+	le65.life_expectancy_1965, 
+	round (le15.life_expectancy_2015-le65.life_expectancy_1965, 2) as life_expectancy_diff
 from
 	(select country, life_expectancy as life_expectancy_2015
 	from life_expectancy le 
@@ -122,7 +146,9 @@ order by country ;
 
 # Do tabulky weather pridam sloupec country.
 create table t_weather as
-select zeme.country, base.*
+select 
+	zeme.country, 
+	base.*
 from
 	(select * 
 	from weather w ) as base
@@ -149,7 +175,9 @@ update t_weather set country = 'Russian Federation' where city = 'Moscow';
 
 # Tabulka s prumernou denni teplotou.
 create table t_avg_temp as
-select *, avg (cast (trim (trim (trailing '°c' from temp))as float)) as avg_temp
+select 
+	*, 
+	avg (cast (trim (trim (trailing '°c' from temp))as float)) as avg_temp
 from t_weather tw 
 where `time` between '06:00' and '18:00'
 and country is not null
@@ -157,7 +185,9 @@ group by country, `date`;
 
 # Pocet hodin srazek behem dne.
 create table t_srazky as
-	select *, count (rain2) as pocet_zaznamu_srazek, (count (rain2))*3 as Rain_hours
+	select 
+	*, 
+	count (rain2) as pocet_zaznamu_srazek, (count (rain2))*3 as Rain_hours
 from
     (select *,cast (trim (trim (trailing 'mm' from rain))as float) as rain2
      from t_weather tw 
@@ -167,7 +197,9 @@ group by country, `date`;
 
 # Maximalni sila vetru v narazech behem dne.
 create table t_max_gusty_wind as
-	select *, max (cast (trim (trim (trailing 'km/h' from gust))as int)) as max_gusty_wind
+	select 
+	*, 
+	max (cast (trim (trim (trailing 'km/h' from gust))as int)) as max_gusty_wind
 from t_weather tw 
 	where `time` between '06:00' and '18:00'
 	and country is not null
@@ -175,7 +207,10 @@ group by country,`date` ;
 
 # Tabulku t_covid_confirmed_tests rozsirim o casove promenne, ktere budou nasledovat hned za sloupcem date.
 create table t_covid_confirmed_tests_cas as
-select country ,`date` , case 
+select 
+	country ,
+	`date` , 
+	case 
               when dayofweek (`date`) = 7 or dayofweek (`date`) = 1 then 'YES'
               else 'NO'
               end as Weekend,
@@ -184,7 +219,8 @@ select country ,`date` , case
               when `date` BETWEEN '2020-09-22' AND '2020-12-20' or `date` between '2021-09-22' AND '2021-12-20' then 2
               else 3
          	  end as Season,
-              confirmed , tests_performed 
+     confirmed , 
+     tests_performed 
 from t_covid_confirmed_tests tcct ;
 
 # Uprava tabulek vychazejicich z economies, aby se nazvy zemi shodovaly se zakladni tabulkou t_covid_confirmed_tests_cas.
@@ -291,4 +327,57 @@ create table t_Judaism as
 select country , religion, perc_share_on_total_population as Judaism
 from t_religion_share trs2 where religion = 'Judaism';
 
+# Tabulka finale.
 
+create table t_Jiri_Valasek_projekt_SQL_final as
+select 
+	tcctc.*, 
+	tpd.population_density , 
+	tgpc.gdp_per_capita , 
+	tg.GINI , 
+	tm.mortaliy_under5 , 
+	tled.life_expectancy_diff , 
+	tc.Christianity , 
+	ti.Islam , 
+	tb.Buddhism ,
+	th.Hinduism ,
+	tj.Judaism ,
+    tfr.Folk_Religions ,
+    tur.Unaffiliated_Religions ,
+    tor.Other_Religions , 
+    tat.avg_temp ,
+    ts.Rain_hours ,
+    tmgw.max_gusty_wind 
+from t_covid_confirmed_tests_cas tcctc 
+left join t_pop_density tpd 
+on tcctc.country = tpd.country 
+left join t_gdp_per_capita tgpc 
+on tcctc.country = tgpc.country 
+left join t_gini tg 
+on tcctc.country = tg.country 
+left join t_mort5 tm 
+on tcctc.country = tm.country 
+left join t_life_expectancy_diff tled 
+on tcctc.country = tled.country
+left join t_christianity tc 
+on tcctc.country = tc.country 
+left join t_islam ti 
+on tcctc.country = ti.country 
+left join t_buddhism tb 
+on tcctc.country = tb.country 
+left join t_hinduism th 
+on tcctc.country = th.country 
+left join t_judaism tj 
+on tcctc.country = tj.country 
+left join t_folk_religions tfr 
+on tcctc.country = tfr.country
+left join t_unaffiliated_religions tur 
+on tcctc.country = tur.country 
+left join t_other_religions tor 
+on tcctc.country = tor.country 
+left join t_avg_temp tat 
+on tcctc.country = tat.country and tcctc.`date` = tat.`date` 
+left join t_srazky ts 
+on tcctc.country = ts.country and tcctc.`date` = ts.`date` 
+left join t_max_gusty_wind tmgw 
+on tcctc.country = tmgw.country and tcctc.`date` = tmgw.`date` ;
