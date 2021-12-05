@@ -453,3 +453,28 @@ on tcctc.country = ts.country and tcctc.`date` = ts.`date`
 left join t_max_gusty_wind tmgw 
 on tcctc.country = tmgw.country and tcctc.`date` = tmgw.`date` ;
 
+# Kontroloval jsem chybejici udaje ve finalni tabulce a nasel chyby.
+# Zahozeni finalni tabulky a oprava chyb v primarnich datech.
+
+drop table t_jiri_valasek_projekt_sql_final ;
+
+update t_population set country = "Cote d'Ivoire" where country = 'Ivory Coast';
+update t_population set country = 'Fiji' where country = 'Fiji Islands';
+update t_population set country = 'Holy See' where country = 'Holy See (Vatican City State)';
+update t_population set country = 'Libya' where country = 'Libyan Arab Jamahiriya';
+update t_population set country = 'Micronesia' where country = 'Micronesia, Federated States of';
+update t_population set country = 'Russia' where country = 'Russian Federation';
+update t_population set country = 'Timor-Leste' where country = 'East Timor';
+
+update t_pop_density set country = "Cote d'Ivoire" where country = 'Ivory Coast';
+update t_pop_density set country = 'Fiji' where country = 'Fiji Islands';
+update t_pop_density set country = 'Holy See' where country = 'Holy See (Vatican City State)';
+update t_pop_density set country = 'Libya' where country = 'Libyan Arab Jamahiriya';
+update t_pop_density set country = 'Micronesia' where country = 'Micronesia, Federated States of';
+update t_pop_density set country = 'Russia' where country = 'Russian Federation';
+update t_pop_density set country = 'Timor-Leste' where country = 'East Timor';
+
+update t_mort5 set country = "Cote d'Ivoire" where country = 'Ivory Coast';
+update t_gdp_per_capita set country = "Cote d'Ivoire" where country = 'Ivory Coast';
+update t_gini set country = "Cote d'Ivoire" where country = 'Ivory Coast';
+
