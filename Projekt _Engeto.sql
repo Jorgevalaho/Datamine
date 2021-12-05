@@ -478,3 +478,9 @@ update t_mort5 set country = "Cote d'Ivoire" where country = 'Ivory Coast';
 update t_gdp_per_capita set country = "Cote d'Ivoire" where country = 'Ivory Coast';
 update t_gini set country = "Cote d'Ivoire" where country = 'Ivory Coast';
 
+# Jeste upravy chyb v primarnich datech.
+update t_life_expectancy_diff set country = "Cote d'Ivoire" where country = 'Ivory Coast';
+update t_life_expectancy_diff set country = 'Micronesia' where country = 'Micronesia (country)';
+update t_life_expectancy_diff set country = 'Timor-Leste' where country = 'Timor';
+
+update t_religion_share set country = "Cote d'Ivoire" where country = 'Ivory Coast';
