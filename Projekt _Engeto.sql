@@ -211,14 +211,14 @@ select
 	country ,
 	`date` , 
 	case 
-              when dayofweek (`date`) = 7 or dayofweek (`date`) = 1 then 'YES'
+              when dayofweek(`date`) IN (1,7) then 'YES'
               else 'NO'
               end as Weekend,
-              case when `date` BETWEEN '2020-03-20' AND '2020-06-20' or `date` between '2021-03-20' AND '2021-06-20' then 0
-              when `date` BETWEEN '2020-06-21' AND '2020-09-21' or `date` between '2021-06-21' AND '2021-09-21' then 1
-              when `date` BETWEEN '2020-09-22' AND '2020-12-20' or `date` between '2021-09-22' AND '2021-12-20' then 2
-              else 3
-         	  end as Season,
+              	case when date_format(`date`, '%m %d') BETWEEN ('03 20') AND ('06 20') then 0
+              	when date_format(`date`, '%m %d') BETWEEN ('06 21') AND ('09 21') then 1
+              	when date_format(`date`, '%m %d') BETWEEN ('09 22') AND ('12 20') then 2
+              	else 3
+         	  	end as Season,
      confirmed , 
      tests_performed 
 from t_covid_confirmed_tests tcct ;
