@@ -327,60 +327,6 @@ create table t_Judaism as
 select country , religion, perc_share_on_total_population as Judaism
 from t_religion_share trs2 where religion = 'Judaism';
 
-# Tabulka finale.
-
-create table t_Jiri_Valasek_projekt_SQL_final as
-select 
-	tcctc.*, 
-	tpd.population_density , 
-	tgpc.gdp_per_capita , 
-	tg.GINI , 
-	tm.mortaliy_under5 , 
-	tled.life_expectancy_diff , 
-	tc.Christianity , 
-	ti.Islam , 
-	tb.Buddhism ,
-	th.Hinduism ,
-	tj.Judaism ,
-    tfr.Folk_Religions ,
-    tur.Unaffiliated_Religions ,
-    tor.Other_Religions , 
-    tat.avg_temp ,
-    ts.Rain_hours ,
-    tmgw.max_gusty_wind 
-from t_covid_confirmed_tests_cas tcctc 
-left join t_pop_density tpd 
-on tcctc.country = tpd.country 
-left join t_gdp_per_capita tgpc 
-on tcctc.country = tgpc.country 
-left join t_gini tg 
-on tcctc.country = tg.country 
-left join t_mort5 tm 
-on tcctc.country = tm.country 
-left join t_life_expectancy_diff tled 
-on tcctc.country = tled.country
-left join t_christianity tc 
-on tcctc.country = tc.country 
-left join t_islam ti 
-on tcctc.country = ti.country 
-left join t_buddhism tb 
-on tcctc.country = tb.country 
-left join t_hinduism th 
-on tcctc.country = th.country 
-left join t_judaism tj 
-on tcctc.country = tj.country 
-left join t_folk_religions tfr 
-on tcctc.country = tfr.country
-left join t_unaffiliated_religions tur 
-on tcctc.country = tur.country 
-left join t_other_religions tor 
-on tcctc.country = tor.country 
-left join t_avg_temp tat 
-on tcctc.country = tat.country and tcctc.`date` = tat.`date` 
-left join t_srazky ts 
-on tcctc.country = ts.country and tcctc.`date` = ts.`date` 
-left join t_max_gusty_wind tmgw 
-on tcctc.country = tmgw.country and tcctc.`date` = tmgw.`date` ;
 
 # Vytvoreni tabulky s udaji o celkove populaci a uprava nazvu zemi.
 create table t_population as 
@@ -393,70 +339,7 @@ update t_population set country = 'Burma' where country = 'Myanmar';
 update t_population set country = 'Czechia' where country = 'Czech Republic';
 update t_population set country = 'Congo (Kinshasa)' where country = 'Congo';
 
-# Smazani tabulky finale.
-drop table t_jiri_valasek_projekt_sql_final ;
-
-# Vytvoreni nove tabulky finale.
-create table t_Jiri_Valasek_projekt_SQL_final as
-select 
-	tcctc.*,
-	tp.population ,
-	tpd.population_density , 
-	tgpc.gdp_per_capita , 
-	tg.GINI , 
-	tm.mortaliy_under5 , 
-	tled.life_expectancy_diff , 
-	tc.Christianity , 
-	ti.Islam , 
-	tb.Buddhism ,
-	th.Hinduism ,
-	tj.Judaism ,
-    tfr.Folk_Religions ,
-    tur.Unaffiliated_Religions ,
-    tor.Other_Religions , 
-    tat.avg_temp ,
-    ts.Rain_hours ,
-    tmgw.max_gusty_wind 
-from t_covid_confirmed_tests_cas tcctc 
-left join t_population tp 
-on tcctc.country = tp.country 
-left join t_pop_density tpd 
-on tcctc.country = tpd.country 
-left join t_gdp_per_capita tgpc 
-on tcctc.country = tgpc.country 
-left join t_gini tg 
-on tcctc.country = tg.country 
-left join t_mort5 tm 
-on tcctc.country = tm.country 
-left join t_life_expectancy_diff tled 
-on tcctc.country = tled.country
-left join t_christianity tc 
-on tcctc.country = tc.country 
-left join t_islam ti 
-on tcctc.country = ti.country 
-left join t_buddhism tb 
-on tcctc.country = tb.country 
-left join t_hinduism th 
-on tcctc.country = th.country 
-left join t_judaism tj 
-on tcctc.country = tj.country 
-left join t_folk_religions tfr 
-on tcctc.country = tfr.country
-left join t_unaffiliated_religions tur 
-on tcctc.country = tur.country 
-left join t_other_religions tor 
-on tcctc.country = tor.country 
-left join t_avg_temp tat 
-on tcctc.country = tat.country and tcctc.`date` = tat.`date` 
-left join t_srazky ts 
-on tcctc.country = ts.country and tcctc.`date` = ts.`date` 
-left join t_max_gusty_wind tmgw 
-on tcctc.country = tmgw.country and tcctc.`date` = tmgw.`date` ;
-
 # Kontroloval jsem chybejici udaje ve finalni tabulce a nasel chyby.
-# Zahozeni finalni tabulky a oprava chyb v primarnich datech.
-
-drop table t_jiri_valasek_projekt_sql_final ;
 
 update t_population set country = "Cote d'Ivoire" where country = 'Ivory Coast';
 update t_population set country = 'Fiji' where country = 'Fiji Islands';
